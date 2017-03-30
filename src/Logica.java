@@ -13,7 +13,7 @@ public class Logica implements Observer {
 	private int id, cambio, cambioDos, cambioTres;
 	private boolean start;
 	private final String GROUP_ADDRESS = "226.24.6.8";
-	private PImage escenarioUno, escenarioDos, escenarioTres, inesUno, inesDos, inesTres;
+	private PImage escenarioUno, escenarioDos, escenarioTres, inesUno, inesDos, inesTres, bonk, dos, plaga, tres, uno, weed;
 
 	public Logica(PApplet app) {
 		// TODO Auto-generated constructor stub
@@ -32,6 +32,14 @@ public class Logica implements Observer {
 		inesUno = app.loadImage("inesUno.png");
 		inesDos = app.loadImage("inesDos.png");
 		inesTres = app.loadImage("inesTres.png");
+		bonk = app.loadImage("bonk.png");
+		dos = app.loadImage("dos.png");
+		plaga = app.loadImage("plaga.png");
+		tres = app.loadImage("tres.png");
+		uno = app.loadImage("uno.png");
+		weed = app.loadImage("weed.png");
+		
+		
 		cambio = 0;
 		cambioDos = 0;
 		cambioTres = 0;
