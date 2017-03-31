@@ -27,6 +27,14 @@ public class Main extends PApplet{
 		// TODO Auto-generated method stub
 		background(255);
 		log.pintar();
+		System.out.println("mousex: " + mouseX);
+		System.out.println("mouseY: " + mouseY);
+	}
+	
+	@Override
+	public void mousePressed() {
+		// TODO Auto-generated method stub
+		log.click();
 	}
 	
 }

@@ -10,7 +10,7 @@ public class Logica implements Observer {
 	private Tiempo time;
 	private PApplet app;
 	private Comunicacion com;
-	private int id, cambio, cambioDos, cambioTres;
+	private int id, cambio, cambioDos, cambioTres, puntaje;
 	private boolean start;
 	private final String GROUP_ADDRESS = "226.24.6.8";
 	private PImage escenarioUno, escenarioDos, escenarioTres, inesUno, inesDos, inesTres, bonk, dos, plaga, tres, uno, weed;
@@ -19,16 +19,17 @@ public class Logica implements Observer {
 		// TODO Auto-generated constructor stub
 		this.app = app;
 		time = new Tiempo();
-		time.start();
+		
 
 		com = new Comunicacion();
 		com.addObserver(this);
 		Thread hilo = new Thread(com);
 		hilo.start();
+		time.start();
 
 		escenarioUno = app.loadImage("escenarioUno.png");
-		escenarioDos = app.loadImage("escenarioUno.png");
-		escenarioTres = app.loadImage("escenarioUno.png");
+		escenarioDos = app.loadImage("escenarioDos.png");
+		escenarioTres = app.loadImage("escenarioTres.png");
 		inesUno = app.loadImage("inesUno.png");
 		inesDos = app.loadImage("inesDos.png");
 		inesTres = app.loadImage("inesTres.png");
@@ -58,7 +59,7 @@ public class Logica implements Observer {
 	}
 
 	public void pintar() {
-		if (start != true && id < 4 && app.frameCount < 360) {
+		if (start != true && id < 4 && app.frameCount < 540) {
 			app.fill(0);
 			app.textAlign(PApplet.CENTER);
 			app.text("Esperando Jugadores", app.width / 2, app.height / 2);
@@ -76,7 +77,17 @@ public class Logica implements Observer {
 				break;
 
 			case 1:
+				time.setCorre(true);
 				app.image(escenarioUno, 0, 0);
+				app.fill(0);
+				app.textAlign(PApplet.CENTER);
+				app.textSize(20);
+				app.text("Puntaje", 230, 40);
+				app.text(puntaje, 280, 41);
+				app.textSize(20);
+				int sec = time.getSec();
+				app.text(sec, app.width/2, 40);
+				fin();
 				break;
 			}
 		}
@@ -87,7 +98,20 @@ public class Logica implements Observer {
 				break;
 
 				case 1:
+					if (id == 1 && time.getSec() == 30) {
+						time.setCorre(true);
+					}
+
 					app.image(escenarioDos, 0, 0);
+					app.fill(0);
+					app.textAlign(PApplet.CENTER);
+					app.textSize(20);
+					app.text("Puntaje", 230, 40);
+					app.text(puntaje, 280, 41);
+					app.textSize(20);
+					int sec = time.getSec();
+					app.text(sec, app.width/2, 40);
+					fin();
 				break;
 			}
 		}
@@ -99,11 +123,67 @@ public class Logica implements Observer {
 				break;
 
 				case 1:
+					time.setCorre(true);
 					app.image(escenarioTres, 0, 0);
+					app.fill(0);
+					app.textAlign(PApplet.CENTER);
+					app.textSize(20);
+					app.text("Puntaje", 230, 40);
+					app.text(puntaje, 280, 41);
+					app.textSize(20);
+					int sec = time.getSec();
+					app.text(sec, app.width/2, 40);
+					fin();
 				break;
 			}
 		}
 
+	}
+	
+	public void fin(){
+		int sec = time.getSec();
+
+		if (sec >= 30 && cambio == 1) {
+			time.setCorre(false);
+			app.fill(0);
+			app.noStroke();
+			app.rect(0, 150, app.width, 400);
+			app.fill(255);
+			app.textAlign(PApplet.CENTER);
+			app.text("TU TIEMPO SE ACABO", app.width/2, app.height/2);
+		}
+		if (sec >= 30 && cambioDos == 1) {
+			time.setCorre(false);
+			app.fill(0);
+			app.noStroke();
+			app.rect(0, 150, app.width, 400);
+			app.fill(255);
+			app.textAlign(PApplet.CENTER);
+			app.text("TU TIEMPO SE ACABO", app.width/2, app.height/2);
+		}
+		if (sec >= 60 && cambioTres == 1) {
+			time.setCorre(false);
+			app.fill(0);
+			app.noStroke();
+			app.rect(0, 150, app.width, 400);
+			app.fill(255);
+			app.textAlign(PApplet.CENTER);
+			app.text("TU TIEMPO SE ACABO", app.width/2, app.height/2);
+		}
+	}
+	
+	public void click(){
+		if (app.mousePressed && app.mouseX > 90 && app.mouseX < 230 && app.mouseY > 450 && app.mouseY < 500 && cambio == 0 && id == 1) {
+			cambio = 1;
+		}
+		
+		if (app.mousePressed && app.mouseX > 90 && app.mouseX < 230 && app.mouseY > 450 && app.mouseY < 500 && cambioDos == 0 && id == 2) {
+			cambioDos = 1;
+		}
+
+		if (app.mousePressed && app.mouseX > 90 && app.mouseX < 230 && app.mouseY > 450 && app.mouseY < 500 && cambioTres == 0 && id == 3) {
+			cambioTres = 1;
+		}
 	}
 
 	@Override
