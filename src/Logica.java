@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -14,13 +15,15 @@ public class Logica implements Observer {
 	private boolean start;
 	private final String GROUP_ADDRESS = "226.24.6.8";
 	private PImage escenarioUno, escenarioDos, escenarioTres, inesUno, inesDos, inesTres, bonk, dos, plaga, tres, uno, weed;
+	private ArrayList<Weed> plantas;
 
 	public Logica(PApplet app) {
 		// TODO Auto-generated constructor stub
 		this.app = app;
 		time = new Tiempo();
 		
-
+		plantas = new ArrayList<>();
+		
 		com = new Comunicacion();
 		com.addObserver(this);
 		Thread hilo = new Thread(com);
