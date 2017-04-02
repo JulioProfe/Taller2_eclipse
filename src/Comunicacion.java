@@ -7,6 +7,7 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 import java.util.Observable;
 
 public class Comunicacion extends Observable implements Runnable {
@@ -66,6 +67,13 @@ public class Comunicacion extends Observable implements Runnable {
 	}
 	
 	public void enviar(Object info, String ipAdrs) throws IOException {
+		byte[] data = serialize(info);
+		InetAddress host = InetAddress.getByName(ipAdrs);
+		DatagramPacket dPacket = new DatagramPacket(data, data.length, host, PORT);
+
+		mSocket.send(dPacket);
+	}
+	public void enviar(ArrayList<Weed> info, String ipAdrs) throws IOException {
 		byte[] data = serialize(info);
 		InetAddress host = InetAddress.getByName(ipAdrs);
 		DatagramPacket dPacket = new DatagramPacket(data, data.length, host, PORT);
@@ -143,6 +151,16 @@ public class Comunicacion extends Observable implements Runnable {
 							if (deserialize(dPacket.getData()) instanceof Bonk) {
 								setChanged();
 								notifyObservers((Bonk) deserialize(dPacket.getData()));
+								clearChanged();
+							}
+							if (deserialize(dPacket.getData()) instanceof ArrayList<?>) {
+								setChanged();
+								notifyObservers((Weed) deserialize(dPacket.getData()));
+								clearChanged();
+							}
+							if (deserialize(dPacket.getData()) instanceof ArrayList<?>) {
+								setChanged();
+								notifyObservers((Plaga) deserialize(dPacket.getData()));
 								clearChanged();
 							}
 						}

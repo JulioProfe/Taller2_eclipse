@@ -8,13 +8,11 @@ public class Personaje implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private PImage image;
 	private int id, x, y;
 	
-	public Personaje(int id, PImage image, int x, int y) {
+	public Personaje(int id, int x, int y) {
 		// TODO Auto-generated constructor stub
 		this.id = id;
-		this.image = image;
 		this.x = x;
 		this.y = y;
 	}
